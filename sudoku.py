@@ -117,10 +117,9 @@ class Sudoku:
             for j in range(9):
                 self.grid[i][j] = 0
 
+if __name__ == '__main__':
+    test = Sudoku()
 
-
-test = Sudoku()
-
-test.partialPopulate(17)
-test.solve()
-test.print()
+    test.partialPopulate(17)
+    test.solve()
+    test.print()
