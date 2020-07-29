@@ -121,5 +121,9 @@ if __name__ == '__main__':
     test = Sudoku()
 
     test.partialPopulate(17)
+    print("Randomly generated Sudoku board:")
+    test.print()
+    print()
     test.solve()
+    print("Solution:")
     test.print()
