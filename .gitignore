@@ -1,55 +1,6 @@
+# VScode folder
+.vscode
 
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@LCVcode
-github /
-gitignore
-
-3.1k
-103k
-
-    54.5k
-
-Code
-Pull requests 143
-Actions
-Projects 0
-Security 0
-
-    Insights
-
-gitignore/Python.gitignore
-@pradyunsg pradyunsg Remove pip-wheel-metadata/ from Python.gitignore (#3364) 14f8a8b on Apr 11
-@arcresu
-@shiftkey
-@Lucretiel
-@Harrison-G
-@jwg4
-@GabrielC101
-@misaelnieto
-@pmsosa
-@svkampen
-@vltr
-@thedrow
-@matheussl
-@hugovk
-@ghisvail
-@EvandroLG
-@DSIW
-@amigcamel
-@toanant
-@2Cubed
-@brettcannon
-@weinihou
-@Visgean
-@nvie
-@skuschel
-@sigo
-@sethmlarson
-138 lines (112 sloc) 1.99 KB
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
