@@ -4,6 +4,10 @@ class Sudoku:
     def __init__(self):
         self.clear()
 
+    @property
+    def free_cells(self):
+        return sum([row.count(0) for row in self.grid])
+
     @classmethod
     def clamp(cls, value: int, low: int, high: int):
         '''
@@ -103,6 +107,15 @@ class Sudoku:
         '''
         self.clear()
         self._randomize_cell()
+        while self.free_cells + count + 1 < 81:
+            x, y = random.randint(0, 8), random.randint(0, 8)
+            if self.grid[x][y] == 0 or (x == y == 4):
+                continue
+            self.grid[x][y] = 0
+            self.grid[8-x][8-y] = 0
+        
+        if count%2==0:
+            self.grid[4][4] = 0
     
     def _randomize_cell(self, x=0, y=0):
         options = list(self.getOptions(x, y))
@@ -126,7 +139,7 @@ class Sudoku:
 if __name__ == '__main__':
     test = Sudoku()
 
-    test.random_game(count=30)
+    test.random_game(count=35)
     print("Randomly generated Sudoku board:")
     test.print()
     print()
