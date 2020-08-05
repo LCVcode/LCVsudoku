@@ -2,7 +2,7 @@ import random
 
 class Sudoku:
     def __init__(self):
-        self.grid = [[0 for _ in range(9)] for _ in range(9)]
+        self.clear()
 
     @classmethod
     def clamp(cls, value: int, low: int, high: int):
@@ -86,7 +86,7 @@ class Sudoku:
         '''
         if i == 81:
             return True
-
+        # print(i)
         x, y = i // 9, i % 9
         if (self.grid[x][y] != 0):
             return self.solve(i + 1)
@@ -97,30 +97,36 @@ class Sudoku:
         self.setAt(x, y, 0)
         return False
 
-    def partialPopulate(self, count: int = 10):
+    def random_game(self, count: int = 10):
         '''
         Populates count number of cells with a random legal value
         '''
         self.clear()
-        i = 0
-        while i < count:
-            x, y = random.randint(0, 8), random.randint(0, 8)
-            if self.grid[x][y] != 0: continue
-            i += 1
-            self.setAt(x, y, random.choice(tuple(self.getOptions(x, y))))
+        self._randomize_cell()
+    
+    def _randomize_cell(self, x=0, y=0):
+        options = list(self.getOptions(x, y))
+        random.shuffle(options)
+        for value in options:
+            self.grid[x][y] = value
+            if x==8 and y==8:
+                return True
+            if self._randomize_cell((x+1)%9, y+(x+1)//9):
+                return True
+        self.grid[x][y] = 0
+        return False
+
 
     def clear(self):
         '''
         Clears grid.  Every cell is reset to 0.
         '''
-        for i in range(9):
-            for j in range(9):
-                self.grid[i][j] = 0
+        self.grid = [[0 for _ in range(9)] for _ in range(9)]
 
 if __name__ == '__main__':
     test = Sudoku()
 
-    test.partialPopulate(17)
+    test.random_game(count=30)
     print("Randomly generated Sudoku board:")
     test.print()
     print()
