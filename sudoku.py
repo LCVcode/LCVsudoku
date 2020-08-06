@@ -1,8 +1,10 @@
 import random
 
 class Sudoku:
-    def __init__(self):
+    def __init__(self, count=0):
         self.clear()
+        if count:
+            self.random_game(count)
 
     @property
     def free_cells(self):
@@ -81,25 +83,8 @@ class Sudoku:
         ref = range(3)
         bar = '\n' + '+'.join('---' for _ in ref) + '\n'
         result = bar.join(['\n'.join(_rowPrintable(x+3*y) for x in ref) for y in ref])
-        # result = '\n'.join(_rowPrintable(x) for x in ref)
         print(result)
 
-    def solve(self, i: int = 0):
-        '''
-        Solves sudoku game
-        '''
-        if i == 81:
-            return True
-        # print(i)
-        x, y = i // 9, i % 9
-        if (self.grid[x][y] != 0):
-            return self.solve(i + 1)
-        for k in self.getOptions(x, y):
-            self.setAt(x, y, k)
-            if self.solve(i + 1):
-                return True
-        self.setAt(x, y, 0)
-        return False
 
     def random_game(self, count: int = 10):
         '''
@@ -113,10 +98,10 @@ class Sudoku:
                 continue
             self.grid[x][y] = 0
             self.grid[8-x][8-y] = 0
-        
+
         if count%2==0:
             self.grid[4][4] = 0
-    
+
     def _randomize_cell(self, x=0, y=0):
         options = list(self.getOptions(x, y))
         random.shuffle(options)
@@ -135,14 +120,3 @@ class Sudoku:
         Clears grid.  Every cell is reset to 0.
         '''
         self.grid = [[0 for _ in range(9)] for _ in range(9)]
-
-if __name__ == '__main__':
-    test = Sudoku()
-
-    test.random_game(count=35)
-    print("Randomly generated Sudoku board:")
-    test.print()
-    print()
-    test.solve()
-    print("Solution:")
-    test.print()
