@@ -10,27 +10,6 @@ class Sudoku:
     def free_cells(self):
         return sum([row.count(0) for row in self.grid])
 
-    @classmethod
-    def clamp(cls, value: int, low: int, high: int):
-        '''
-        Returns int(value) clamped between low and high
-        '''
-        return max(low, min(high, int(value)))
-
-    @classmethod
-    def rowColClamp(cls, i: int) -> int:
-        '''
-        Clamps i between 0 and 8, to match list indices
-        '''
-        return Sudoku.clamp(i, 0, 8)
-
-    @classmethod
-    def blockClamp(cls, i):
-        '''
-        Clamps i between 0 and 2, to match block sizes
-        '''
-        return Sudoku.clamp(i, 0, 2)
-
     def setAt(self, x, y, value):
         '''
         Sets one value in the grid
@@ -53,14 +32,12 @@ class Sudoku:
         '''
         Returns set containing values in row row_id
         '''
-        row_id = Sudoku.rowColClamp(row_id)
         return set([x for x in range(1, 10) if x not in self.grid[row_id]])
 
     def readCol(self, col_id: int) -> set:
         '''
         Returns set containing values in col col_id
         '''
-        col_id = Sudoku.rowColClamp(col_id)
         column = tuple([self.grid[x][col_id] for x in range(9)])
         return set([x for x in range(1, 10) if x not in column])
 
@@ -68,7 +45,7 @@ class Sudoku:
         '''
         Returns set containing values in block at row_id and col_id
         '''
-        row_id, col_id = Sudoku.blockClamp(row_id // 3), Sudoku.blockClamp(col_id // 3)
+        row_id, col_id = row_id//3, col_id//3
         block = []
         for i in range(3):
             block.extend(self.grid[3*row_id + i][3*col_id:3*col_id+3])
