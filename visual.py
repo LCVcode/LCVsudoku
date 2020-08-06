@@ -63,6 +63,7 @@ def draw_values(screen, sudoku):
     for i, x in enumerate(col_locations()):
         for j, y in enumerate(row_locations()):
             if (n := sudoku.getAt(i, j)) != 0:
+                # TODO: Modify the location of characters to fit inside cells
                 cell_text = font.render(str(n), False, color)
                 screen.blit(cell_text, (x, y))
 
