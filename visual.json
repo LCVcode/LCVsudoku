@@ -1,0 +1,21 @@
+{
+    "cell": {
+        "height": 40,
+        "width": 40,
+        "color": "245, 240, 210",
+        "border": 1
+    },
+    "grid": {
+        "color": "245, 240, 210",
+        "thickness": 3,
+        "border": 2
+    },
+    "bg": {
+        "color": "29,21,11"
+    },
+    "font":
+    {
+        "name": "Tahoma",
+        "color": "245, 0, 210"
+    }
+}

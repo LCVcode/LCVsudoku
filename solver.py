@@ -7,7 +7,6 @@ def solve(sudoku, i=0):
     '''
     if i == 81:
         return True
-    # print(i)
     x, y = i // 9, i % 9
     if (sudoku.grid[x][y] != 0):
         return solve(sudoku, i + 1)
