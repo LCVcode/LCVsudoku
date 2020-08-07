@@ -46,7 +46,6 @@ def draw_sudoku_solve_state(screen, sudoku, box_list=[]):
     # Draws everything on screen with highlights behind cells being solved
     screen.fill(json_to_color(config['bg']['color']))
     for ((x, y), color) in box_list:
-        print(x, y, color)
         draw_box(screen, x, y, json_to_color(config['box'][color]))
     draw_cells(screen=screen)
     draw_values(screen=screen, sudoku=sudoku)
@@ -83,7 +82,6 @@ def draw_box(screen, x, y, color):
     x = tuple(col_locations())[x] - border
     y = tuple(row_locations())[y] - border
     border *= 2
-    print(x, y, border, color)
     box = pg.Rect(y, x, config['cell']['width']+border, config['cell']['height']+border)
     pg.draw.rect(screen, color, box)
 
@@ -91,6 +89,5 @@ if __name__ == '__main__':
     visual = get_screen()
     board = Sudoku(40)
     draw_sudoku_solve_state(visual, board, (((0, 0), 'highlight'), ((0, 1), 'rollback')))
-    pg.display.flip()
     import time
     time.sleep(3)
