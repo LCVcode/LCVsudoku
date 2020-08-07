@@ -3,12 +3,11 @@
         "height": 40,
         "width": 40,
         "color": "245, 240, 210",
-        "border": 4
+        "border": 3
     },
     "grid": {
         "color": "245, 240, 210",
-        "thickness": 3,
-        "border": 2
+        "border": 5
     },
     "bg": {
         "color": "29,21,11"

@@ -44,6 +44,10 @@ def json_to_color(json_color):
 
 def draw_sudoku_solve_state(screen, sudoku, box_list=[]):
     # Draws everything on screen with highlights behind cells being solved
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            raise SystemExit
     screen.fill(json_to_color(config['bg']['color']))
     for ((x, y), color) in box_list:
         draw_box(screen, x, y, json_to_color(config['box'][color]))

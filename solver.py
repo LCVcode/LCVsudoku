@@ -32,7 +32,7 @@ def animate_solve(screen, sudoku, i=0):
     for k in sudoku.getOptions(x, y): # Loop through possible values
         sudoku.setAt(x, y, k)
         draw_sudoku_solve_state(screen, sudoku, [((x, y), 'highlight')])
-        time.sleep(0.02)
+        time.sleep(0.005)
         if animate_solve(screen, sudoku, i + 1):
             return True
     sudoku.setAt(x, y, 0)
