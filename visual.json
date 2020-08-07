@@ -3,7 +3,7 @@
         "height": 40,
         "width": 40,
         "color": "245, 240, 210",
-        "border": 1
+        "border": 4
     },
     "grid": {
         "color": "245, 240, 210",
@@ -13,9 +13,12 @@
     "bg": {
         "color": "29,21,11"
     },
-    "font":
-    {
+    "font": {
         "name": "Tahoma",
         "color": "245, 0, 210"
+    },
+    "box": {
+        "highlight": "0,255,121",
+        "rollback": "240,102,80"
     }
 }

@@ -42,7 +42,17 @@ def json_to_color(json_color):
     # Converts color format in visual.json into a tuple
     return tuple(int(x) for x in json_color.split(','))
 
-def draw_all(screen, sudoku):
+def draw_sudoku_solve_state(screen, sudoku, box_list=[]):
+    # Draws everything on screen with highlights behind cells being solved
+    screen.fill(json_to_color(config['bg']['color']))
+    for ((x, y), color) in box_list:
+        print(x, y, color)
+        draw_box(screen, x, y, json_to_color(config['box'][color]))
+    draw_cells(screen=screen)
+    draw_values(screen=screen, sudoku=sudoku)
+    pg.display.flip()
+
+def draw_sudoku(screen, sudoku):
     # Draws everything on screen
     screen.fill(json_to_color(config['bg']['color']))
     draw_cells(screen=screen)
@@ -55,7 +65,7 @@ def draw_cells(screen):
     height, width = config['cell']['height'], config['cell']['width']
     for x in col_locations():
         for y in row_locations():
-            pg.draw.rect(screen, color, pg.Rect(x, y, width, height))
+            pg.draw.rect(screen, color, pg.Rect(y, x, width, height))
 
 def draw_values(screen, sudoku):
     # Draws cell text on the screen
@@ -65,11 +75,22 @@ def draw_values(screen, sudoku):
             if (n := sudoku.getAt(i, j)) != 0:
                 # TODO: Modify the location of characters to fit inside cells
                 cell_text = font.render(str(n), False, color)
-                screen.blit(cell_text, (x, y))
+                screen.blit(cell_text, (y, x))
+
+def draw_box(screen, x, y, color):
+    # Draws highlights behind cells to show solve progress
+    border = config['cell']['border']
+    x = tuple(col_locations())[x] - border
+    y = tuple(row_locations())[y] - border
+    border *= 2
+    print(x, y, border, color)
+    box = pg.Rect(y, x, config['cell']['width']+border, config['cell']['height']+border)
+    pg.draw.rect(screen, color, box)
 
 if __name__ == '__main__':
     visual = get_screen()
     board = Sudoku(40)
-    draw_all(visual, board)
+    draw_sudoku_solve_state(visual, board, (((0, 0), 'highlight'), ((0, 1), 'rollback')))
+    pg.display.flip()
     import time
-    time.sleep(2)
+    time.sleep(3)
