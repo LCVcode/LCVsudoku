@@ -22,7 +22,7 @@ def solve(sudoku, i=0):
 
 def animate_solve(screen, sudoku, i=0):
     '''
-    Solves sudoku game and animates each step
+    Solves sudoku game and animates each step.
     '''
     if i == 81:
         return True

@@ -2,7 +2,9 @@ import random
 
 class Sudoku:
     def __init__(self, count=0):
+        # Generate empty cells
         self.clear()
+        # Populate some cells
         if count:
             self.random_game(count)
 
@@ -14,34 +16,34 @@ class Sudoku:
         '''
         Sets one value in the grid
         '''
-        self.grid[x][y] = value
+        self.grid[x][y] = int(value)
 
-    def get_at(self, x, y) -> int:
+    def get_at(self, x, y):
         '''
-        Returns value at (x, y)
+        Returns int value at (x, y)
         '''
         return self.grid[x][y]
 
-    def get_options(self, x, y) -> set:
+    def get_options(self, x, y):
         '''
         Returns set containing all legal values for cell (x, y)
         '''
         return self.read_row(x).intersection(self.read_col(y)).intersection(self.read_block(x, y))
 
-    def read_row(self, row_id: int) -> set:
+    def read_row(self, row_id):
         '''
         Returns set containing values in row row_id
         '''
         return set([x for x in range(1, 10) if x not in self.grid[row_id]])
 
-    def read_col(self, col_id: int) -> set:
+    def read_col(self, col_id):
         '''
         Returns set containing values in col col_id
         '''
         column = tuple([self.grid[x][col_id] for x in range(9)])
         return set([x for x in range(1, 10) if x not in column])
 
-    def read_block(self, row_id: int, col_id: int) -> set:
+    def read_block(self, row_id, col_id):
         '''
         Returns set containing values in block at row_id and col_id
         '''
@@ -52,6 +54,9 @@ class Sudoku:
         return set([x for x in range(1, 10) if x not in block])
 
     def print(self):
+        '''
+        Outputs the board's state
+        '''
         def _rowPrintable(i: int):
             row = [str(x) if (x!=0) else ' ' for x in self.grid[i]]
             row.insert(6, '|')
@@ -63,23 +68,28 @@ class Sudoku:
         print(result)
 
 
-    def random_game(self, count: int = 10):
+    def random_game(self, n=10):
         '''
-        Populates count number of cells with a random legal value
+        Populates n cells with a random value.
+        The entire board is filled, then cells are symmetrically cleared.
+        Even/odd n determines if center cell is filled.
         '''
         self.clear()
         self._randomize_cell()
-        while self.free_cells + count + 1 < 81:
+        while self.free_cells + n + 1 < 81:
             x, y = random.randint(0, 8), random.randint(0, 8)
             if self.grid[x][y] == 0 or (x == y == 4):
                 continue
             self.grid[x][y] = 0
             self.grid[8-x][8-y] = 0
 
-        if count%2==0:
+        if n%2==0:
             self.grid[4][4] = 0
 
     def _randomize_cell(self, x=0, y=0):
+        '''
+        Recursively populates empty cells with legal values.
+        '''
         options = list(self.get_options(x, y))
         random.shuffle(options)
         for value in options:
