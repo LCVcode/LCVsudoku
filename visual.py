@@ -1,4 +1,6 @@
 import json
+import sys
+
 import pygame as pg
 from sudoku import Sudoku
 
@@ -6,6 +8,10 @@ from sudoku import Sudoku
 # Load settings
 with open("visual.json", 'r') as f:
     config = json.load(f)
+
+# Config cleanup
+for key in (k for k in config.keys() if 'border' in config[k].keys()):
+    config[key]['border'] = max(0, config[key]['border'])
 
 # Build font
 pg.font.init()
@@ -46,7 +52,6 @@ def draw_sudoku_solve_state(screen, sudoku, box_list=[]):
     # Draws everything on screen with highlights behind cells being solved
     for event in pg.event.get():
         if event.type == pg.QUIT:
-            pg.quit()
             raise SystemExit
     screen.fill(json_to_color(config['bg']['color']))
     for ((x, y), color) in box_list:
