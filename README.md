@@ -21,5 +21,13 @@ python main.py 25
 The values in config.json are intended to be modified to your liking.
 Every visual element is adjustable, with further functionality to come.
 
+## What I Learned
+* Pygame 2D graphics
+* GitHub repository management
+* Depth-first search
+* Python 'yield'
+* Refined json skills
+* Git practice
+
 ## Contact
 Connor Chamberlain - lcvcode@gmail.com
