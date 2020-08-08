@@ -1,5 +1,6 @@
 import random
 
+
 class Sudoku:
     def __init__(self, count=0):
         # Generate empty cells
@@ -11,6 +12,10 @@ class Sudoku:
     @property
     def free_cells(self):
         return sum([row.count(0) for row in self.grid])
+
+    @classmethod
+    def intersect(cls, s1, s2, s3):
+        return s1.intersection(s2.intersection(s3))
 
     def set_at(self, x, y, value):
         '''
@@ -28,7 +33,9 @@ class Sudoku:
         '''
         Returns set containing all legal values for cell (x, y)
         '''
-        return self.read_row(x).intersection(self.read_col(y)).intersection(self.read_block(x, y))
+        return Sudoku.intersect(self.read_row(x),
+                                self.read_col(y),
+                                self.read_block(x, y))
 
     def read_row(self, row_id):
         '''
@@ -57,16 +64,15 @@ class Sudoku:
         '''
         Outputs the board's state
         '''
-        def _rowPrintable(i: int):
-            row = [str(x) if (x!=0) else ' ' for x in self.grid[i]]
+        def _row(i: int):
+            row = [str(x) if (x != 0) else ' ' for x in self.grid[i]]
             row.insert(6, '|')
             row.insert(3, '|')
             return ''.join(row)
         ref = range(3)
         bar = '\n' + '+'.join('---' for _ in ref) + '\n'
-        result = bar.join(['\n'.join(_rowPrintable(x+3*y) for x in ref) for y in ref])
+        result = bar.join(['\n'.join(_row(x+3*y) for x in ref) for y in ref])
         print(result)
-
 
     def random_game(self, n=10):
         '''
@@ -83,7 +89,7 @@ class Sudoku:
             self.grid[x][y] = 0
             self.grid[8-x][8-y] = 0
 
-        if n%2==0:
+        if n % 2 == 0:
             self.grid[4][4] = 0
 
     def _randomize_cell(self, x=0, y=0):
@@ -94,13 +100,13 @@ class Sudoku:
         random.shuffle(options)
         for value in options:
             self.grid[x][y] = value
-            if x==8 and y==8:
+            if x == 8 and y == 8:
                 return True
-            if self._randomize_cell((x+1)%9, y+(x+1)//9):
+            i, j = (x + 1) % 9, y + (x + 1) // 9
+            if self._randomize_cell(i, j):
                 return True
         self.grid[x][y] = 0
         return False
-
 
     def clear(self):
         '''

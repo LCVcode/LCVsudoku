@@ -20,6 +20,7 @@ def solve(sudoku, i=0):
     sudoku.set_at(x, y, 0)
     return False
 
+
 def animate_solve(screen, sudoku, i=0):
     '''
     Solves sudoku game and animates each step.
@@ -27,9 +28,9 @@ def animate_solve(screen, sudoku, i=0):
     if i == 81:
         return True
     x, y = i // 9, i % 9
-    if (sudoku.grid[x][y] != 0): # Skip populated cells
+    if (sudoku.grid[x][y] != 0):  # Skip populated cells
         return animate_solve(screen, sudoku, i + 1)
-    for k in sudoku.get_options(x, y): # Loop through possible values
+    for k in sudoku.get_options(x, y):  # Loop through possible values
         sudoku.set_at(x, y, k)
         draw_sudoku_solve_state(screen, sudoku, [((x, y), 'highlight')])
         time.sleep(0.005)

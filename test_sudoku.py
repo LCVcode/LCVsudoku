@@ -1,20 +1,25 @@
 import pytest
 
+
 from sudoku import Sudoku
+
 
 @pytest.fixture
 def sudoku():
     return Sudoku()
 
+
 def test_sudoku_getters(sudoku):
     for i in range(9):
         assert sudoku.get_at(i, i) == 0
+
 
 def test_sudoku_setters(sudoku):
     for i in range(9):
         sudoku.set_at(i, i, i)
 
         assert sudoku.get_at(i, i) == i
+
 
 def test_sudoku_read_row(sudoku):
     sudoku.set_at(0, 0, 2)
@@ -24,6 +29,7 @@ def test_sudoku_read_row(sudoku):
 
     assert sudoku.read_row(0) == {4, 6, 7, 8, 9}
 
+
 def test_sudoku_read_col(sudoku):
     sudoku.set_at(1, 0, 4)
     sudoku.set_at(2, 0, 5)
@@ -31,6 +37,7 @@ def test_sudoku_read_col(sudoku):
     sudoku.set_at(4, 0, 1)
 
     assert sudoku.read_col(0) == {2, 6, 7, 8, 9}
+
 
 def test_sudoku_read_block(sudoku):
     sudoku.set_at(3, 3, 1)
