@@ -66,15 +66,15 @@ def draw_cells(screen):
     # Draws all 81 cells on the screen
     color = json_to_color(config['cell']['color'])
     height, width = config['cell']['height'], config['cell']['width']
-    for x in col_locations():
-        for y in row_locations():
+    for x in row_locations():
+        for y in col_locations():
             pg.draw.rect(screen, color, pg.Rect(y, x, width, height))
 
 def draw_values(screen, sudoku):
     # Draws cell text on the screen
     color = json_to_color(config['font']['color'])
-    for i, x in enumerate(col_locations()):
-        for j, y in enumerate(row_locations()):
+    for i, x in enumerate(row_locations()):
+        for j, y in enumerate(col_locations()):
             if (n := sudoku.getAt(i, j)) != 0:
                 # TODO: Modify the location of characters to fit inside cells
                 cell_text = font.render(str(n), False, color)
@@ -83,8 +83,8 @@ def draw_values(screen, sudoku):
 def draw_box(screen, x, y, color):
     # Draws highlights behind cells to show solve progress
     border = config['cell']['border']
-    x = tuple(col_locations())[x] - border
-    y = tuple(row_locations())[y] - border
+    x = tuple(row_locations())[x] - border
+    y = tuple(col_locations())[y] - border
     border *= 2
     box = pg.Rect(y, x, config['cell']['width']+border, config['cell']['height']+border)
     pg.draw.rect(screen, color, box)
