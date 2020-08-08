@@ -22,6 +22,8 @@ The values in config.json are intended to be modified to your liking.
 Every visual element is adjustable, with further functionality to come.
 
 ## What I Learned
+* GitHub Actions
+* Pytest
 * Pygame 2D graphics
 * GitHub repository management
 * Depth-first search
