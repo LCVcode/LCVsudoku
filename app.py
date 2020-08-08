@@ -85,7 +85,7 @@ class ActionsPanel(QWidget):
         cells = self.parent.grid.cells
         for x in range(9):
             for y in range(9):
-                value = self.parent.sudoku.getAt(x, y)
+                value = self.parent.sudoku.get_at(x, y)
                 button = cells[9*x + y]
                 if value == 0:
                     button.setButton()

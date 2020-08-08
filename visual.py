@@ -80,7 +80,7 @@ def draw_values(screen, sudoku):
     color = json_to_color(config['font']['color'])
     for i, x in enumerate(row_locations()):
         for j, y in enumerate(col_locations()):
-            if (n := sudoku.getAt(i, j)) != 0:
+            if (n := sudoku.get_at(i, j)) != 0:
                 # TODO: Modify the location of characters to fit inside cells
                 cell_text = font.render(str(n), False, color)
                 screen.blit(cell_text, (y, x))

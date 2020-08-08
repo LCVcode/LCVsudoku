@@ -10,38 +10,38 @@ class Sudoku:
     def free_cells(self):
         return sum([row.count(0) for row in self.grid])
 
-    def setAt(self, x, y, value):
+    def set_at(self, x, y, value):
         '''
         Sets one value in the grid
         '''
         self.grid[x][y] = value
 
-    def getAt(self, x, y) -> int:
+    def get_at(self, x, y) -> int:
         '''
         Returns value at (x, y)
         '''
         return self.grid[x][y]
 
-    def getOptions(self, x, y) -> set:
+    def get_options(self, x, y) -> set:
         '''
         Returns set containing all legal values for cell (x, y)
         '''
-        return self.readRow(x).intersection(self.readCol(y)).intersection(self.readBlock(x, y))
+        return self.read_row(x).intersection(self.read_col(y)).intersection(self.read_block(x, y))
 
-    def readRow(self, row_id: int) -> set:
+    def read_row(self, row_id: int) -> set:
         '''
         Returns set containing values in row row_id
         '''
         return set([x for x in range(1, 10) if x not in self.grid[row_id]])
 
-    def readCol(self, col_id: int) -> set:
+    def read_col(self, col_id: int) -> set:
         '''
         Returns set containing values in col col_id
         '''
         column = tuple([self.grid[x][col_id] for x in range(9)])
         return set([x for x in range(1, 10) if x not in column])
 
-    def readBlock(self, row_id: int, col_id: int) -> set:
+    def read_block(self, row_id: int, col_id: int) -> set:
         '''
         Returns set containing values in block at row_id and col_id
         '''
@@ -80,7 +80,7 @@ class Sudoku:
             self.grid[4][4] = 0
 
     def _randomize_cell(self, x=0, y=0):
-        options = list(self.getOptions(x, y))
+        options = list(self.get_options(x, y))
         random.shuffle(options)
         for value in options:
             self.grid[x][y] = value
