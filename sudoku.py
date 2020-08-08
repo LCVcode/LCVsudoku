@@ -102,7 +102,7 @@ class Sudoku:
             self.grid[x][y] = value
             if x == 8 and y == 8:
                 return True
-            i, j = (x + 1) % 9, (x + 1) // 9
+            i, j = (x + 1) % 9, y + (x + 1) // 9
             if self._randomize_cell(i, j):
                 return True
         self.grid[x][y] = 0
