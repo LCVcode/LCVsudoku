@@ -3,7 +3,6 @@ import time
 
 
 import pygame as pg
-from sudoku import Sudoku
 
 
 # Load settings
@@ -113,12 +112,3 @@ def draw_box(screen, x, y, color):
     hei = config['cell']['height']+border
     box = pg.Rect(y, x, wid, hei)
     pg.draw.rect(screen, color, box)
-
-
-if __name__ == '__main__':
-    visual = get_screen()
-    board = Sudoku(40)
-    highlights = (((0, 0), 'highlight'), ((0, 1), 'rollback'))
-    draw_sudoku_solve_state(visual, board, highlights)
-    import time
-    time.sleep(3)
