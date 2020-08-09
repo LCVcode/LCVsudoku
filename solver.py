@@ -1,5 +1,3 @@
-import time
-
 from sudoku import Sudoku
 from visual import draw_sudoku_solve_state, get_screen
 
@@ -33,7 +31,6 @@ def animate_solve(screen, sudoku, i=0):
     for k in sudoku.get_options(x, y):  # Loop through possible values
         sudoku.set_at(x, y, k)
         draw_sudoku_solve_state(screen, sudoku, [((x, y), 'highlight')])
-        time.sleep(0.005)
         if animate_solve(screen, sudoku, i + 1):
             return True
     sudoku.set_at(x, y, 0)

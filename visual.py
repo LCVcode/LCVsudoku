@@ -1,4 +1,5 @@
 import json
+import time
 
 
 import pygame as pg
@@ -10,8 +11,12 @@ with open("visual.json", 'r') as f:
     config = json.load(f)
 
 # Config cleanup
-for key in (k for k in config.keys() if 'border' in config[k].keys()):
-    config[key]['border'] = max(0, config[key]['border'])
+for k in config.keys():
+    try:
+        if 'border' in config[k].keys():
+            config[k]['border'] = max(0, config[k]['border'])
+    except AttributeError:
+        continue
 
 
 # Build font
@@ -66,6 +71,7 @@ def draw_sudoku_solve_state(screen, sudoku, box_list=[]):
     draw_cells(screen=screen)
     draw_values(screen=screen, sudoku=sudoku)
     pg.display.flip()
+    time.sleep(1/config['speed'])
 
 
 def draw_sudoku(screen, sudoku):
@@ -88,12 +94,13 @@ def draw_cells(screen):
 def draw_values(screen, sudoku):
     # Draws cell text on the screen
     color = json_to_color(config['font']['color'])
+    mod = config['cell']['width'] // 2
     for i, x in enumerate(row_locations()):
         for j, y in enumerate(col_locations()):
             if (n := sudoku.get_at(i, j)) != 0:
                 # TODO: Modify the location of characters to fit inside cells
                 cell_text = font.render(str(n), False, color)
-                screen.blit(cell_text, (y, x))
+                screen.blit(cell_text, (y + mod - 10, x))
 
 
 def draw_box(screen, x, y, color):

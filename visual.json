@@ -1,7 +1,7 @@
 {
     "cell": {
         "height": 40,
-        "width": 50,
+        "width": 65,
         "color": "245, 240, 210",
         "border": 2
     },
@@ -14,10 +14,11 @@
     },
     "font": {
         "name": "Tahoma",
-        "color": "245, 0, 210"
+        "color": "128, 0, 32"
     },
     "box": {
         "highlight": "0,255,121",
         "rollback": "240,102,80"
-    }
+    },
+    "speed": 50
 }
