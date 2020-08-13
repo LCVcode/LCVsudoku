@@ -1,8 +1,9 @@
 {
     "cell": {
-        "height": 40,
-        "width": 65,
+        "height": 32,
+        "width": 32,
         "color": "245, 240, 210",
+        "offcolor": "220, 215, 170",
         "border": 2
     },
     "grid": {

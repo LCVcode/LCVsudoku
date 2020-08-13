@@ -84,22 +84,27 @@ def draw_sudoku(screen, sudoku):
 def draw_cells(screen):
     # Draws all 81 cells on the screen
     color = json_to_color(config['cell']['color'])
+    offcolor = json_to_color(config['cell']['offcolor'])
     height, width = config['cell']['height'], config['cell']['width']
     for x in row_locations():
         for y in col_locations():
-            pg.draw.rect(screen, color, pg.Rect(y, x, width, height))
+            if ((x//3) + (y//3)) % 2:
+                pg.draw.rect(screen, color, pg.Rect(y, x, width, height))
+            else:
+                pg.draw.rect(screen, offcolor, pg.Rect(y, x, width, height))
 
 
 def draw_values(screen, sudoku):
     # Draws cell text on the screen
     color = json_to_color(config['font']['color'])
-    mod = config['cell']['width'] // 2
+    dy = config['cell']['width'] // 2
+    dx = config['cell']['height'] // 2
     for i, x in enumerate(row_locations()):
         for j, y in enumerate(col_locations()):
             if (n := sudoku.get_at(i, j)) != 0:
                 # TODO: Modify the location of characters to fit inside cells
                 cell_text = font.render(str(n), False, color)
-                screen.blit(cell_text, (y + mod - 10, x))
+                screen.blit(cell_text, (y + dy - 10, x + dx - 16))
 
 
 def draw_box(screen, x, y, color):
