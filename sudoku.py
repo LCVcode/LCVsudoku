@@ -2,24 +2,36 @@ import random
 
 
 class Sudoku:
-    def __init__(self, count=0):
+    def __init__(self, count=0, filepath=''):
         # Generate empty cells
         self.clear()
-        # Populate some cells
-        if count:
+        if len(filepath):  # Import board from file
+            with open(filepath, 'r') as f:
+                self.load_from_string(''.join(tuple(s.strip() for s in f.readlines())))
+        elif count:  # Populate some cells
             self.random_game(count)
 
     @property
     def free_cells(self):
+        # Counts free cells
         return sum([row.count(0) for row in self.grid])
 
     @classmethod
     def intersect(cls, s1, s2, s3):
         return s1.intersection(s2.intersection(s3))
 
+    def load_from_string(self, load_string):
+        '''
+        Sets grid based on load_string, which must be 81 characters long
+        '''
+        if len(load_string) != 81:
+            raise ValueError("Expected string of length 81, got string of length", len(load_string))
+        for i, char in enumerate(load_string):
+            self.grid[i//9][i%9] = int(char)
+
     def set_at(self, x, y, value):
         '''
-        Sets one value in the grid
+        Sets value at (x, y)
         '''
         self.grid[x][y] = int(value)
 
@@ -62,7 +74,7 @@ class Sudoku:
 
     def print(self):
         '''
-        Outputs the board's state
+        Prints the board's state
         '''
         def _row(i: int):
             row = [str(x) if (x != 0) else ' ' for x in self.grid[i]]
@@ -76,9 +88,7 @@ class Sudoku:
 
     def random_game(self, n=10):
         '''
-        Populates n cells with a random value.
-        The entire board is filled, then cells are symmetrically cleared.
-        Even/odd n determines if center cell is filled.
+        Generates random board with n starting values
         '''
         self.clear()
         self._randomize_cell()
