@@ -86,9 +86,9 @@ def draw_cells(screen):
     color = json_to_color(config['cell']['color'])
     offcolor = json_to_color(config['cell']['offcolor'])
     height, width = config['cell']['height'], config['cell']['width']
-    for x in row_locations():
-        for y in col_locations():
-            if ((x//3) + (y//3)) % 2:
+    for i, x in enumerate(row_locations()):
+        for j, y in enumerate(col_locations()):
+            if ((i//3) + (j//3)) % 2:
                 pg.draw.rect(screen, color, pg.Rect(y, x, width, height))
             else:
                 pg.draw.rect(screen, offcolor, pg.Rect(y, x, width, height))
@@ -104,7 +104,7 @@ def draw_values(screen, sudoku):
             if (n := sudoku.get_at(i, j)) != 0:
                 # TODO: Modify the location of characters to fit inside cells
                 cell_text = font.render(str(n), False, color)
-                screen.blit(cell_text, (y + dy - 10, x + dx - 16))
+                screen.blit(cell_text, (y + dy - 10, x + dx - 20))
 
 
 def draw_box(screen, x, y, color):

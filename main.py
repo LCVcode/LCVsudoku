@@ -2,7 +2,10 @@ import sys
 
 from solver import animate_solve, get_screen, Sudoku
 
-value = sys.argv[1]
+try:
+    value = sys.argv[1]
+except:
+    value = 11
 
 try:
     board = Sudoku(count=int(value))
